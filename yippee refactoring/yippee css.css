@@ -1,0 +1,36 @@
+body {
+    font-family: monospace ;
+    font-size: large ;
+    text-align: center ;
+}
+
+img {
+    width: 100px ;
+}
+
+input[type=file] {
+    width: 65px;
+    max-width: 100%;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #555;
+}
+
+textarea {
+    border-radius: 10px;
+    border: 1px solid #555;
+}
+
+.column {
+    float: left ;
+    padding-left: 2.5% ;
+    padding-right: 2.5% ;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    clear: both ;
+    content: "" ;
+    display: table ;
+}
