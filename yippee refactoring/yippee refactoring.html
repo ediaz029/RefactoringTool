@@ -1,68 +1,89 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="yippee css.css">
-    <title> title </title>
-</head>
-<body>
+    <head>
+        <link rel="stylesheet" href="yippee css.css">
+        <title> title </title>
+    </head>
+    <body>
 
-    <br><br>
-    <h1>Team YIPPEE Refactoring Tool</h1>
-    <p>
-        welcome to the YIPPEE group's refactoring tool :3
-        <br>
-        javascript ONLY
-    </p>
-    
-    <div class="row">
-        <div class="column">
-            <!-- text area underneath -->
-            <p> <b>your code:</b> </p>
-
-            <form action="/action_page.php">
-                <input type="file" id="myFile">
-            </form>
-
-            <br>
-            
-            <!-- onchange: when the user exits the text box,
-                 call the script function below -->
-            <textarea id="usercode" rows="30" cols="100" style="resize:none" onchange="killyourself()"> </textarea>
-        </div>
-        <div class="column">
-            <img id="creature" src="yippee.png">
-        </div>
-        <div class="column">
-            <p> refactored code: </p>
-            <!-- text area underneath -->
-            <textarea id="refactoredcode" rows="30" cols="100" style="resize:none" readonly> </textarea>
-        </div>
-    </div>
-
-    <script>
-        function killyourself() {
-            // get user code from text area
-            usercode = document.getElementById("usercode").value ;
-
-            // refactor
-            usercode = usercode + " yaaay this has been refactored yaaaay yippee" ;
-
-            // set refactored code to result
-            document.getElementById("refactoredcode").value = usercode ;
-
-            // update image
-            document.getElementById("creature").src = "yippee.gif" ;
-
-            setTimeout(function(){document.getElementById("creature").src = "yippee.png"}, 4930) ;
-        }
-    </script>
-
-    <p>
         <br><br>
-        Catalina Lemmon, Ernesto Diaz, Damian Alvarez
-        <br>
-        Version 0.0 last updated by Cat 6:00pm 10/2/2023
-    </p>
+        <h1>Team YIPPEE Refactoring Tool</h1>
+        <p>
+            welcome to the YIPPEE group's refactoring tool :3
+            <br>
+            javascript ONLY
+        </p>
+        
+        <div class="row">
+            <div class="outer column">.</div>
 
-</body>
+            <div class="codehere column">
+                <!-- text area underneath -->
+                <p> <b>your code:</b> </p>
+
+                <form action="/action_page.php">
+                    <input id="myFile" type="file" class="form-control textarea-fileinput">
+                    <br><br>
+                    <!-- onchange: when the user exits the text box,
+                    call the script function below -->
+                    <textarea id="usercode" onchange="yippee()"> </textarea>
+                </form>
+
+            </div>
+
+            <div class="small column">
+                <img id="creature" src="yippee.png">
+            </div>
+
+            <div class="codehere column">
+                <p> refactored code: </p>
+                <br style=font-size:44px>
+                <!-- text area underneath -->
+                <textarea id="refactoredcode" readonly> </textarea>
+            </div>
+
+            <div class="outer column">.</div>
+        </div>
+
+        <p>
+            <br>
+            Catalina Lemmon, Ernesto Diaz, Damian Alvarez
+            <br>
+            Version 0.0 last updated by Cat 6:00pm 10/2/2023
+        </p>
+
+        <script>
+            function yippee() {
+                // get user code from text area
+                usercode = document.getElementById("usercode").value ;
+
+                // refactoring code goes here
+                usercode = usercode + " yaaay this has been refactored yaaaay yippee" ;
+
+                // set refactored code to result
+                document.getElementById("refactoredcode").value = usercode ;
+
+                // update image
+                document.getElementById("creature").src = "yippee.gif" ;
+
+                setTimeout(function(){document.getElementById("creature").src = "yippee.png"}, 4930) ;
+            }
+
+            // this does not work
+            function readfile(){
+                document.getElementById("myFile").addEventListener('change',function(){
+
+                var fileReader=new FileReader();
+
+                fileReader.onload=function(){
+                    document.getElementById("usercode").value = fileReader.result;
+                }
+
+                fileReader.readAsText(this.files[0]);
+
+                })
+            }
+        </script>
+
+    </body>
 </html>
