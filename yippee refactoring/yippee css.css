@@ -1,3 +1,5 @@
+/* CSS by Cat */
+
 body {
     font-family: monospace ;
     font-size: large ;
@@ -6,6 +8,7 @@ body {
 
 img {
     max-width: 250px ;
+    min-width: 50px ;
     width: 100% ;
 }
 
@@ -34,18 +37,14 @@ textarea {
     float: left ;
 }
 
-.outer {
-    width: 5% ;
-}
-
 .codehere {
     /* 5 padding + 2*5 padding + 2*4 border */
-    padding: 5px 23px 5px 5px ;
+    padding: 5px 25px ;
 
     height: fit-content ;
     /* 500 - 2*5 padding - 2*4 border */
     max-width: 482px ;
-    width: 33% ;
+    width: calc(40% - 50px - 8px ) ;
 }
 
 .small {
@@ -53,7 +52,13 @@ textarea {
     padding: 186px 25px 0 25px ;
 
     height: calc( 622px - 176px ) ;
-    width: calc( 23% ) ;
+    width: calc( 33% - 200px ) ;
+    min-width: 50px ;
+}
+
+.row{
+    margin: 0 auto ;
+    width: 67% ;
 }
 
 /* make the footer stick to the bottom */
