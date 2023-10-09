@@ -38,7 +38,6 @@ textarea {
 }
 
 .codehere {
-    /* 5 padding + 2*5 padding + 2*4 border */
     padding: 5px 25px ;
 
     height: fit-content ;
