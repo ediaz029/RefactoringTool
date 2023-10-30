@@ -48,41 +48,10 @@
             <br>
             Catalina Lemmon, Ernesto Diaz, Damian Alvarez
             <br>
-            Version 0.2 last updated by Cat 5:30pm 10/9/2023
+            Version 0.3 last updated by Cat 9:00am 10/30/2023
         </p>
 
-        <script>
-            function yippee() {
-                // get user code from text area
-                usercode = document.getElementById("usercode").value ;
-
-                // refactoring code goes here
-                usercode = usercode + " yaaay this has been refactored yaaaay yippee" ;
-
-                // set refactored code to result
-                document.getElementById("refactoredcode").value = usercode ;
-
-                // update image
-                document.getElementById("creature").src = "yippee.gif" ;
-
-                setTimeout(function(){document.getElementById("creature").src = "yippee.png"}, 4930) ;
-            }
-
-            // this does not work
-            function readfile(){
-                document.getElementById("myFile").addEventListener('change',function(){
-
-                var fileReader=new FileReader();
-
-                fileReader.onload=function(){
-                    document.getElementById("usercode").value = fileReader.result;
-                }
-
-                fileReader.readAsText(this.files[0]);
-
-                })
-            }
-        </script>
+        <script src="refactoring.js"></script>
 
     </body>
 </html>
