@@ -117,8 +117,6 @@ function extractMethod(code) {
 
 
 
-// JS by Ernesto? JS by Damian? below...
-
 // BEGIN inline method (https://refactoring.guru/inline-method)
 function inlineMethod() {
   // yippee
@@ -132,6 +130,14 @@ function extractVariable() {
   // yippee
 }
 // END extract variable
+
+
+
+
+
+
+
+// JS by Damian
 
 
 
@@ -156,6 +162,14 @@ function splitTemp() {
   // yippee
 }
 // END split temp
+
+
+
+
+
+
+
+// JS by Ernesto
 
 
 
