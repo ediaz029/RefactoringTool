@@ -28,7 +28,7 @@
 
 
 
-// YIPPEE!!! YIPPEE!!!!!!!!!!!!!
+// BEGIN yippee
   // yippee on change
   document.getElementById("usercode").addEventListener("change", yippee) ;
 
@@ -43,22 +43,20 @@
     // wait until gif is over, then stop it
     setTimeout(function(){document.getElementById("creature").src = "yippee.png"}, 4930)
   }
-// END of yippee :pensive:
+// END yippee
 
 
 
-// BEGIN "refactoring" lol ok whatevr
+// BEGIN refactoring
   function refactor(code){
-    // REMEMBER... we need to split it up into chunks before starting refactoring!
-    // so find out how to break it into parts around each function or whatever...
-    // and put it in this function maybe?
+    // split-into-chunks function eventually?
     
-    // actually refactor it somehow
-    code = extractMethod(code) ;
-    // add other refactors as they're made...
+    // add the refactor methods here:
+    code = extractMethod(code)
+    code = inlineMethod(code)
 
     // trim and add the annoying text so i know it worked
-    return code.trim() + "\n\n// yaaay this has been refactored yaaaay yippee"
+    return "// yaaay this has been refactored yaaaay yippee\n\n"+ code.trim()
   }
 // END refactoring FOREVER!!!!!!!!!!!! JUST STOP IT
 
@@ -84,49 +82,109 @@
 
 // BEGIN extract method (https://refactoring.guru/extract-method)
 function extractMethod(code) {
-  // find where a comment is
-  codecomment = code.indexOf("//")
+  // locate comment
+  commentstart = code.indexOf("//")
     // if dne then exit
-    if ( codecomment == -1 ) { return code }
+    if ( commentstart == -1 ) { return "// extract method failed: no comments found\n\n" + code }
 
   // see where comment ends
-  commentends = code.indexOf("\n", codecomment)
+  commentend = code.indexOf("\n", commentstart)
 
   // break it up into parts
-  topcode = code.substr( 0, codecomment )
-  subcode = code.substr( codecomment, commentends - codecomment )
-  bottomcode = code.substr( commentends )
+  topcode    = code.substr( 0, commentstart )                         // everything above the comment
+  comment    = code.substr( commentstart, commentend - commentstart ) // the comment itself
+  bottomcode = code.substr( commentend )                              // everything below the comment
 
-  // convert the comment to one word yaaaayyyyyywooooooooooo
+  // convert comment to one word
   // it will be very long if the comment itself is long but i dont care
-  subcode = subcode.replaceAll(/[^0-9a-z]/gi,"").toLowerCase()
+  comment = comment.replaceAll(/[^0-9a-z]/gi,"").toLowerCase()
     // if empty then exit
-    if ( subcode == "" ) { return code }
+    if ( comment == "" ) { return "// extract method failed: comment has no text\n\n" + code }
 
   // if the generated name is already an existing function
-  // ie substring() ... then you're screwed fuck you
+  // ie substring() ... then oopsies! too late!
   
-  // theres supposed to be a thing that extracts inside functions
-  // like printdetails(){ inside() }
-  //      --> printdetails( double inside() ) { inside }
-  // but idk how to grab that and take it out or anything
+  /* theres supposed to be a thing that extracts inside functions
+     like printdetails(){ inside() }
+          --> printdetails( double inside() ) { inside }
+     but idk how to grab that and take it out or anything */
 
-  return topcode + subcode + "();\n}\n\nvoid " + subcode + "() {" + bottomcode
+  return "// extract method: successful\n\n" + topcode + comment + "();\n}\n\nvoid " + comment + "() {" + bottomcode
 }
 // END extract method
 
 
 
 // BEGIN inline method (https://refactoring.guru/inline-method)
-function inlineMethod() {
-  // yippee
+function inlineMethod(code) {
+  // locate return
+  returnstart = code.indexOf("return")
+    if ( returnstart == -1 ) { return "// inline method failed: return not found\n\n" + code }
+
+  // see where return ends
+  returnend = code.indexOf("\n", returnstart)
+
+  // break it up into just one part
+  // (i dont want to run more functions than i have to if this next one doesn't exist anyway)
+  bottomcode = code.substr( returnend )
+
+  // locate second return
+  returnstarttwo = bottomcode.indexOf("return")
+    if ( returnstarttwo == -1 ) { return "// inline method failed: second return not found\n\n" + code}
+
+  // see where return ends
+  returnendtwo = bottomcode.indexOf("\n", returnstarttwo)
+
+  // break it up into parts
+  topcode = code.substr( 0, returnstart )
+  returnn = code.substr( returnstart, returnend - returnstart )
+  midcode    = bottomcode.substr( 0, returnstarttwo )
+  returntwo  = bottomcode.substr( returnstarttwo, returnendtwo - returnstarttwo )
+  bottomcode = bottomcode.substr( returnendtwo )
+
+  // locate function in returnn
+  returnfunction = returnn.indexOf("()")
+    if ( returnfunction == -1 ) { return "// inline method failed: return function not found\n\n" + code }
+    
+  // get function
+  returnfunction = returnn.substr( returnn.indexOf(" ") + 1, returnfunction - returnn.indexOf(" ") + 1 )
+
+  // locate function in middle
+  midfunction = midcode.indexOf( returnfunction )
+    if ( midfunction == -1 ) { return "// inline method failed: middle function not found\n\n" + code }
+  
+  // get function
+  midfunction = midcode.substr( midfunction, midcode.indexOf("()", midfunction) - midfunction + 2 )
+
+  return "// inline method successful, but didn't do anything yet lol.\n\n" + topcode + returnn + midcode + returntwo + bottomcode
+  // + "\n\n\n" + returnfunction
+  // + "\n\n\n" + midfunction
 }
 // END inline method
 
 
+/* class PizzaDelivery {
+  // ...
+  int getRating() {
+    return moreThanFiveLateDeliveries() ? 2 : 1;
+  }
+  boolean moreThanFiveLateDeliveries() {
+    return numberOfLateDeliveries > 5;
+  }
+}
+
+class PizzaDelivery {
+  // ...
+  int getRating() {
+    return numberOfLateDeliveries > 5 ? 2 : 1;
+  }
+}
+*/
+
+
 
 // BEGIN extract variable (https://refactoring.guru/extract-variable)
-function extractVariable() {
+function extractVariable(code) {
   // yippee
 }
 // END extract variable
@@ -142,7 +200,7 @@ function extractVariable() {
 
 
 // BEGIN inline temp (https://refactoring.guru/inline-temp)
-function inlineTemp() {
+function inlineTemp(code) {
   // yippee
 }
 // END inline temp
@@ -150,7 +208,7 @@ function inlineTemp() {
 
 
 // BEGIN replace temp with query (https://refactoring.guru/replace-temp-with-query)
-function replaceTemp() {
+function replaceTemp(code) {
   // yippee
 }
 // END replace temp
@@ -158,7 +216,7 @@ function replaceTemp() {
 
 
 // BEGIN split temporary variable (https://refactoring.guru/split-temporary-variable)
-function splitTemp() {
+function splitTemp(code) {
   // yippee
 }
 // END split temp
@@ -175,7 +233,7 @@ function splitTemp() {
 
 // BEGIN remove assignments to parameters
   // (https://refactoring.guru/remove-assignments-to-parameters)
-function removeAss() {
+function removeAss(code) {
   // yippee
 }
 // END remove assignments
@@ -184,7 +242,7 @@ function removeAss() {
 
 // BEGIN replace method with method object
   // (https://refactoring.guru/replace-method-with-method-object)
-function replaceMethod() {
+function replaceMethod(code) {
   // yippee
 }
 // END replace method
@@ -192,7 +250,7 @@ function replaceMethod() {
 
 
 // BEGIN substitute algorithm (https://refactoring.guru/substitute-algorithm)
-function substituteAlgorithm() {
+function substituteAlgorithm(code) {
   // yippee
 }
 // END substitute algorithm
