@@ -1,0 +1,75 @@
+We have six functions:
+
+
+
+Upload file: Open file into the textarea.
+Test by uploading any txt, js, etc. type file.
+
+
+
+Yippee: Happens automatically upon upload.
+
+
+
+Refactoring (Extract method):
+Test by copy/pasting this example code pulled from https://refactoring.guru/extract-method :
+	void printOwing() {
+	  printBanner();
+	
+	  // Print details.
+	  System.out.println("name: " + name);
+	  System.out.println("amount: " + getOutstanding());
+	}
+
+Output should be the following, along with the yippee animation: 
+
+	void printOwing() {
+	  printBanner();
+	  printDetails(getOutstanding());
+	}
+
+	void printDetails(double outstanding) {
+	  System.out.println("name: " + name);
+	  System.out.println("amount: " + outstanding);
+	}
+
+
+
+Refactoring (Inline Temp):
+Test by copy/pasting this example code pulled from https://refactoring.guru/inline-temp :
+	boolean hasDiscount(Order order) {
+	  double basePrice = order.basePrice();
+	  return basePrice > 1000;
+	}
+
+Output should be the following, along with the yippee animation:
+	boolean hasDiscount(Order order) {
+	  return order.basePrice() > 1000;
+	}
+
+
+
+Refactoring (Replace Temp)
+Test by copy/pasting this example code pulled from https://refactoring.guru/replace-temp-with-query :
+	double calculateTotal() {
+	  double basePrice = quantity * itemPrice;
+	  if (basePrice > 1000) {
+	    return basePrice * 0.95;
+	  }
+	  else {
+	    return basePrice * 0.98;
+	  }
+	}
+
+Output should be the following, along with the yippee animation:
+	double calculateTotal() {
+	  if (basePrice() > 1000) {
+	    return basePrice() * 0.95;
+	  }
+	  else {
+	    return basePrice() * 0.98;
+	  }
+	}
+	double basePrice() {
+	  return quantity * itemPrice;
+	}
