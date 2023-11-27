@@ -1,6 +1,4 @@
-// JS by Cat
-
-
+// JS by Cat, JS by others below
 
 // BEGIN txt file upload
   // start reading on change
@@ -52,11 +50,18 @@
     // split-into-chunks function eventually?
     
     // add the refactor methods here:
-    //code = extractMethod(code)
-    //code = inlineMethod(code)
-    //code = inlineTemp(code)
-    //code = splitTemp(code)
-    //code = replaceTemp(code)
+
+    if (document.getElementById("em").checked) { code = extractMethod(code) }
+    if (document.getElementById("im").checked) { code = inlineMethod(code) }
+    if (document.getElementById("ev").checked) { code = extractVariable(code) }
+
+    if (document.getElementById("it").checked) { code = inlineTemp(code) }
+    if (document.getElementById("st").checked) { code = splitTemp(code) }
+    if (document.getElementById("rt").checked) { code = replaceTemp(code) }
+
+    if (document.getElementById("ra").checked) { code = removeAss(code) }
+    if (document.getElementById("rm").checked) { code = replaceMethod(code) }
+    if (document.getElementById("sa").checked) { code = substituteAlgorithm(code) }
 
     // trim and add the annoying text so i know it worked
     return "// yaaay this has been refactored yaaaay yippee\n\n"+ code.trim()

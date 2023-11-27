@@ -46,6 +46,10 @@ textarea {
     width: calc(40% - 50px - 8px ) ;
 }
 
+label.disabled {
+    color: #C7C7CE
+}
+
 .small {
     border: 0px ;
     padding: 186px 25px 0 25px ;
