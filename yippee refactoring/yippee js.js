@@ -336,13 +336,81 @@ function splitTemp(code) {
 
 // JS by Ernesto
 
-
-
 // BEGIN remove assignments to parameters
   // (https://refactoring.guru/remove-assignments-to-parameters)
+// function removeAss(code) {
+//   let index = 0;
+//   for(; index < code.length ;){
+
+//     funstart = code.indexOf("function")
+
+//     funend = code.indexOf("return", funstart)
+
+//     headerstart = code.indexOf("(", funstart)
+
+//     headerend = code.indexOf(")", headerstart)
+
+//     substrparam1 = (headerend + 1) - headerstart
+
+//     // get function header as substring
+//     paramheader = code.substr(funstart, substrparam1)
+
+//     //for loop to get parameter values
+//     let paramlist = [];
+//     let j = headerstart
+//     for(; j < headerend; j++){
+//       paramstart = headerstart + 1
+//       paramend = code.indexOf(",")
+//       paramlength = paramend - paramstart
+//       param = code.substr(paramstart, paramlength)
+    
+//       paramlist.push(param)
+//     }
+
+//     let param_idx = 0
+//     let k = headerend
+
+//     for(; param_idx < paramlist.length ; param_idx++){
+//       for(; k != funend; k++){
+//         const paramAssignmentRegex = /(\b\w+\b)\s*=\s*([\s\S]*?)(?=[,;]|$)/g;
+//         const replacedData = code.replace(paramAssignmentRegex, (match, param, value) => {
+//           const tempVar = `temp_${param}`;
+//           return `const ${tempVar} = ${value.trim()};`;
+//     });
+//       }
+//     }
+
+//     //Save the index at the end of loop and update for next iteration 
+//     index = funend
+//  }
+
+//   return replacedData;
+// }
+
 function removeAss(code) {
-  // yippee
+  const paramAssignmentRegex = /(\b\w+\b)\s*=\s*([\s\S]*?)(?=[,;]|$)/g;
+
+  // Match and replace parameter assignments within the function block
+  return code.replace(paramAssignmentRegex, (match, param, value) => {
+    const functionStart = code.indexOf("function");
+    const functionEnd = code.indexOf("return", functionStart);
+    const headerStart = code.indexOf("(", functionStart);
+    const headerEnd = code.indexOf(")", headerStart);
+
+    const paramPosition = code.indexOf(param, headerStart);
+
+    // Check if the parameter assignment is inside the function block
+    if (paramPosition !== -1 && paramPosition < functionEnd) {
+      // Replace the parameter assignment with a comment or remove it entirely
+      return '// Removed assignment'; // Replace with '' to remove the assignment, or '// Removed assignment' to comment it out
+    }
+
+    return match; // If it's not an assignment within the function block, retain the original match
+  });
 }
+
+  
+
 // END remove assignments
 
 
@@ -350,15 +418,33 @@ function removeAss(code) {
 // BEGIN replace method with method object
   // (https://refactoring.guru/replace-method-with-method-object)
 function replaceMethod(code) {
-  // yippee
-}
+    // Replace the method with a class
+    let transformedCode = code.replace(/function (\w+)\((.*?)\) {([^}]*)}/s, (match, methodName, params, methodBody) => {
+      const fields = params.split(',').map(param => `this.${param.trim()};`).join('\n  ');
+      const newClass = `
+  class ${methodName}Class {
+    constructor(${params}) {
+      ${fields}
+    }
+  
+    ${methodName}() {
+      ${methodBody}
+    }
+  }
+      `;
+      return newClass;
+    });
+  
+    return transformedCode;
+  }
 // END replace method
 
 
 
 // BEGIN substitute algorithm (https://refactoring.guru/substitute-algorithm)
-function substituteAlgorithm(code) {
-  // yippee
+function substituteAlgorithm(code, newMethod) {
+
+  newMethod = Function(code);
 }
 // END substitute algorithm
 
