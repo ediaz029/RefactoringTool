@@ -401,16 +401,13 @@ function removeAss(code) {
 
     // Check if the parameter assignment is inside the function block
     if (paramPosition !== -1 && paramPosition < functionEnd) {
-      // Replace the parameter assignment with a comment or remove it entirely
-      return '// Removed assignment'; // Replace with '' to remove the assignment, or '// Removed assignment' to comment it out
+      // Comment out the removed assignment
+      return `// ${param} = ${value}; removed parameter assignments`;
     }
 
     return match; // If it's not an assignment within the function block, retain the original match
   });
 }
-
-  
-
 // END remove assignments
 
 
@@ -442,13 +439,31 @@ function replaceMethod(code) {
 
 
 // BEGIN substitute algorithm (https://refactoring.guru/substitute-algorithm)
-function substituteAlgorithm(code, newMethod) {
+function substituteAlgorithm(code) {
 
   newMethod = Function(code);
 }
 // END substitute algorithm
 
+document.getElementById("ra").addEventListener("change", function() {
+  if (this.checked) {
+    document.getElementById("refactoredcode").value = removeAss(document.getElementById("usercode").value);
+    document.getElementById("creature").src = "yippee.gif";
+    setTimeout(function() {
+      document.getElementById("creature").src = "yippee.png";
+    }, 4930);
+  }
+});
 
+document.getElementById("rm").addEventListener("change", function() {
+  if (this.checked) {
+    document.getElementById("refactoredcode").value = replaceMethod(document.getElementById("usercode").value);
+    document.getElementById("creature").src = "yippee.gif";
+    setTimeout(function() {
+      document.getElementById("creature").src = "yippee.png";
+    }, 4930);
+  }
+});
 
 /* there are still more refactoring methods not listed here:
     Moving Features between Objects
