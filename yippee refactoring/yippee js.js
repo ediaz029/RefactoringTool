@@ -171,34 +171,6 @@ function inlineMethod(code) {
 // END inline method
 
 
-/* class PizzaDelivery {
-  // ...
-  int getRating() {
-    return moreThanFiveLateDeliveries() ? 2 : 1;
-  }
-  boolean moreThanFiveLateDeliveries() {
-    return numberOfLateDeliveries > 5;
-  }
-}
-
-class PizzaDelivery {
-  // ...
-  int getRating() {
-    return numberOfLateDeliveries > 5 ? 2 : 1;
-  }
-}
-*/
-
-
-
-// BEGIN extract variable (https://refactoring.guru/extract-variable)
-function extractVariable(code) {
-  // yippee
-}
-// END extract variable
-
-
-
 
 // JS by Damian
 
@@ -350,42 +322,7 @@ function splitTemp(code) {
 
 //     headerend = code.indexOf(")", headerstart)
 
-//     substrparam1 = (headerend + 1) - headerstart
 
-//     // get function header as substring
-//     paramheader = code.substr(funstart, substrparam1)
-
-//     //for loop to get parameter values
-//     let paramlist = [];
-//     let j = headerstart
-//     for(; j < headerend; j++){
-//       paramstart = headerstart + 1
-//       paramend = code.indexOf(",")
-//       paramlength = paramend - paramstart
-//       param = code.substr(paramstart, paramlength)
-    
-//       paramlist.push(param)
-//     }
-
-//     let param_idx = 0
-//     let k = headerend
-
-//     for(; param_idx < paramlist.length ; param_idx++){
-//       for(; k != funend; k++){
-//         const paramAssignmentRegex = /(\b\w+\b)\s*=\s*([\s\S]*?)(?=[,;]|$)/g;
-//         const replacedData = code.replace(paramAssignmentRegex, (match, param, value) => {
-//           const tempVar = `temp_${param}`;
-//           return `const ${tempVar} = ${value.trim()};`;
-//     });
-//       }
-//     }
-
-//     //Save the index at the end of loop and update for next iteration 
-//     index = funend
-//  }
-
-//   return replacedData;
-// }
 
 function removeAss(code) {
   const paramAssignmentRegex = /(\b\w+\b)\s*=\s*([\s\S]*?)(?=[,;]|$)/g;
